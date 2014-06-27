@@ -12,7 +12,7 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'high_voltage'
 gem 'puma'
-gem 'realtime', :git => 'git://github.com/mikeatlas/realtime-rails.git'
+gem 'realtime'
 gem 'pg'
 gem 'redis'
 

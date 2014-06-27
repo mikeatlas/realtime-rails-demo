@@ -5,23 +5,16 @@ class ApplicationController < ActionController::Base
 
   realtime_controller
 
-  after_filter :do_realtime_token_hi
-
-  def do_realtime_token_hi
-  	# cookies["_rtToken"] = { :value => @realtime_token, :domain => ".#{realtime_domain}" }
-  	# cookies["_rtUserId"] = { :value => realtime_user_id, :domain => ".#{realtime_domain}" }
-  end
-
-
   def realtime_user_id
   	return 42
   end
 
-  def realtime_domain
-  	return 'herokuapp.com'
-  end
-
   def realtime_server_url
+  	
+  	if Rails.env.development?
+  		return 'http://local.mikeatlas.com:5001'
+  	end
+
   	return 'http://realtime-server-demo.herokuapp.com'
   end
 
