@@ -1,1 +1,31 @@
 <h3>Welcome - Realtime Rails Demonstration</h3>
+
+When you click the button, an AJAX request is made to the rails server. The server then publishes a message to redis. Then, the realtime node.js server receives the message and emits to back to the front end over a websocket. The front end then listens for the event and uses the message to add new elements to the DOM in realtime! Verify this for yourself - open the app in two browsers and you'll see the event delivered to both. If more than one person is trying out the demo at the same time, you'll see their events show up here as well, since all test messages are being sent to the same user id (42), which is your fixed user ID in this contrived example.
+<br/><br/>
+
+Note that you could add more event types to node.js realtime server and skip the rails' server AJAX request and just emit an event from the front end and let the realtime server handle pushing it back out to other clients.
+
+<br/><br/>
+
+
+<button id='rtTrigger'> Trigger a realtime server event </button>
+
+<br/><br/>
+
+<div id='rtMessages'>
+
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script type='text/javascript'>
+
+$("#rtTrigger").click(function(){
+	$.get('/trigger_realtime_message');
+});
+
+window.realtime.eventBus.on('realtimeMessage', function(message){
+	$("#rtMessages").append("<div>"+message.msg+"</div>");
+});
+
+</script>
